@@ -1,16 +1,34 @@
 import React from 'react';
-import { TextInput, StyleSheet } from 'react-native';
+import { TextInput, StyleSheet, Text } from 'react-native';
+import baseStyles from './Style';
 
 const Input = (props) => {
-  return <TextInput {...props} style={{ ...styles.input, ...props.style }} />;
+  return (
+    <>
+      <TextInput
+        {...props}
+        multiline
+        numberOfLines={3}
+        style={{ ...styles.input, ...props.style }}
+      />
+      {props.error && <Text style={styles.error}>Field cannot be empty</Text>}
+    </>
+  );
 };
 
 const styles = StyleSheet.create({
   input: {
-    height: 30,
+    ...baseStyles.p,
     borderBottomColor: 'grey',
     borderBottomWidth: 1,
-    marginVertical: 10,
+    marginVertical: 15,
+    padding: 5,
+    fontFamily: `Courier`,
+  },
+  error: {
+    color: `red`,
+    marginTop: -5,
+    ...baseStyles.pSmall,
   },
 });
 

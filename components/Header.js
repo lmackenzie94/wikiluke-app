@@ -1,13 +1,5 @@
 import React from 'react';
-import {
-  StyleSheet,
-  Text,
-  TextInput,
-  View,
-  Button,
-  Modal,
-  TouchableOpacity,
-} from 'react-native';
+import { StyleSheet, View, TouchableOpacity } from 'react-native';
 import MonoText from './MonoText';
 import Colours from '../constants/colours';
 import baseStyles from '../components/Style';
@@ -36,7 +28,7 @@ const styles = StyleSheet.create({
     paddingTop: 70,
     paddingBottom: 20,
     paddingHorizontal: 20,
-    marginBottom: 50,
+    // marginBottom: 50,
   },
   headerText: {
     fontWeight: `bold`,

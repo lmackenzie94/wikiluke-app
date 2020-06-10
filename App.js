@@ -5,6 +5,7 @@ import HomeScreen from './screens/HomeScreen';
 import WordInputScreen from './screens/WordInputScreen';
 import QuoteInputScreen from './screens/QuoteInputScreen';
 import AdviceInputScreen from './screens/AdviceInputScreen';
+import Footer from './components/Footer';
 
 export default function App() {
   const [inputs, setInputs] = useState({ show: false, for: '' });
@@ -33,6 +34,7 @@ export default function App() {
     <View style={styles.container}>
       <Header title="wikiluke" setInputs={setInputs} />
       {content}
+      <Footer />
     </View>
   );
 }
@@ -40,5 +42,7 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     backgroundColor: '#fff',
+    flex: 1,
+    justifyContent: `space-between`,
   },
 });

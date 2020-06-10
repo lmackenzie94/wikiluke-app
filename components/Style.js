@@ -14,4 +14,5 @@ export default StyleSheet.create({
     lineHeight: 18,
   },
   p: { fontSize: 15, lineHeight: 20 },
+  pSmall: { fontSize: 13, lineHeight: 13 },
 });

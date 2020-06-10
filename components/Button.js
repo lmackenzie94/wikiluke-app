@@ -13,10 +13,11 @@ export default function Button({
   text,
   bgColour = Colours.green,
   color = `white`,
+  style,
 }) {
   return (
     <TouchableOpacity
-      style={{ ...styles.button, backgroundColor: bgColour }}
+      style={{ ...styles.button, backgroundColor: bgColour, ...style }}
       activeOpacity={0.7}
       onPress={onPress}
     >

@@ -30,35 +30,14 @@ const InputScreen = ({ children, title }) => {
 
 const styles = StyleSheet.create({
   screen: {
-    // flex: 1,
     padding: 10,
     alignItems: 'center',
+    marginTop: -100,
   },
   title: {
     fontSize: 20,
     marginVertical: 10,
-  },
-  inputContainer: {
-    width: 300,
-    maxWidth: '80%',
-    alignItems: 'center',
-  },
-  input: {
-    width: `100%`,
-    textAlign: 'center',
-  },
-  buttonContainer: {
-    flexDirection: 'row',
-    width: '100%',
-    justifyContent: 'space-between',
-    paddingHorizontal: 15,
-  },
-  button: {
-    width: 100,
-  },
-  summaryContainer: {
-    marginTop: 20,
-    alignItems: `center`,
+    fontWeight: `bold`,
   },
 });
 export default InputScreen;
