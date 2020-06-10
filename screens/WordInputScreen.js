@@ -11,13 +11,20 @@ const WordInputScreen = () => {
   const [wordError, setWordError] = useState(false);
   const [definitionError, setDefinitionError] = useState(false);
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     if (!word) setWordError(true);
     if (!definition) setDefinitionError(true);
-
     if (!word || !definition) return;
 
-    console.log(word, definition);
+    const response = await fetch('https://better-brain.herokuapp.com/words', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ name: word, definition }), // body data type must match "Content-Type" header
+    });
+
+    console.log('RESPONSE', response.json());
     setWord('');
     setDefinition('');
   };
