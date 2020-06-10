@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { StyleSheet } from 'react-native';
+import { StyleSheet, Text } from 'react-native';
 import Input from '../components/Input';
 import InputScreen from '../components/InputScreen';
 import Button from '../components/Button';
@@ -10,6 +10,7 @@ const WordInputScreen = () => {
   const [definition, setDefinition] = useState('');
   const [wordError, setWordError] = useState(false);
   const [definitionError, setDefinitionError] = useState(false);
+  const [requestState, setRequestState] = useState({ error: false, msg: null });
 
   const handleSubmit = async () => {
     if (!word) setWordError(true);
@@ -23,10 +24,17 @@ const WordInputScreen = () => {
       },
       body: JSON.stringify({ name: word, definition }), // body data type must match "Content-Type" header
     });
+    if (!response.ok) {
+      setRequestState({
+        error: true,
+        msg: 'Something went wrong, please try again',
+      });
+      return;
+    }
 
-    console.log('RESPONSE', response.json());
     setWord('');
     setDefinition('');
+    setRequestState({ error: false, msg: `Successfully added '${word}'` });
   };
 
   return (
@@ -53,6 +61,13 @@ const WordInputScreen = () => {
         blurOnSubmit
         error={definitionError}
       />
+      {requestState.msg && (
+        <Text
+          style={{ marginTop: 10, color: requestState.error ? `red` : `green` }}
+        >
+          {requestState.msg}
+        </Text>
+      )}
       <Button
         text="Submit"
         bgColour={Colours.greenDark}

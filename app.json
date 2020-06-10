@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "wikiluke-rn",
-    "slug": "wikiluke-rn",
+    "name": "wikiluke",
+    "slug": "wikiluke",
     "platforms": [
       "ios",
       "android",
@@ -23,6 +23,7 @@
     ],
     "ios": {
       "supportsTablet": true
-    }
+    },
+    "description": ""
   }
 }

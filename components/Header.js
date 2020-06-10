@@ -1,32 +1,26 @@
 import React from 'react';
-import { StyleSheet, View, TouchableOpacity } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import MonoText from './MonoText';
 import Colours from '../constants/colours';
 import baseStyles from '../components/Style';
 
-function Header({ title, setInputs }) {
+function Header({ title, navigation }) {
   return (
     <View style={styles.header}>
-      <TouchableOpacity
-        style={{ ...styles.headerText, ...baseStyles.h1 }}
-        onPress={() => setInputs({ show: false, for: '' })}
-        activeOpacity={0.7}
-      >
-        <MonoText styles={{ ...styles.headerText, ...baseStyles.h1 }}>
-          {title}
-        </MonoText>
-      </TouchableOpacity>
+      <MonoText styles={{ ...styles.headerText, ...baseStyles.h1 }}>
+        {title}
+      </MonoText>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
   header: {
-    backgroundColor: Colours.grayLight,
+    backgroundColor: `white`,
     borderBottomWidth: 1,
-    borderBottomColor: Colours.gray,
-    paddingTop: 70,
-    paddingBottom: 20,
+    borderBottomColor: Colours.grayLight,
+    paddingTop: 60,
+    paddingBottom: 15,
     paddingHorizontal: 20,
     // marginBottom: 50,
   },

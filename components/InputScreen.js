@@ -19,10 +19,7 @@ const InputScreen = ({ children, title }) => {
       }}
     >
       <Wrapper>
-        <View style={styles.screen}>
-          <Text style={styles.title}>{title}</Text>
-          {children}
-        </View>
+        <View style={styles.screen}>{children}</View>
       </Wrapper>
     </TouchableWithoutFeedback>
   );
@@ -32,12 +29,7 @@ const styles = StyleSheet.create({
   screen: {
     padding: 10,
     alignItems: 'center',
-    marginTop: -100,
-  },
-  title: {
-    fontSize: 20,
-    marginVertical: 10,
-    fontWeight: `bold`,
+    marginTop: 50,
   },
 });
 export default InputScreen;
