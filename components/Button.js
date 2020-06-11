@@ -12,7 +12,7 @@ export default function Button({
   onPress,
   text,
   bgColour = Colours.green,
-  color = `white`,
+  colour = `white`,
   style,
 }) {
   return (
@@ -21,7 +21,9 @@ export default function Button({
       activeOpacity={0.7}
       onPress={onPress}
     >
-      <MonoText styles={{ ...styles.buttonText, color }}>{text}</MonoText>
+      <MonoText styles={{ ...styles.buttonText, color: colour }}>
+        {text}
+      </MonoText>
     </TouchableOpacity>
   );
 }

@@ -23,7 +23,7 @@ export default function HomeScreen({ navigation }) {
         <ButtonContainer>
           <Button
             text="Add a Word"
-            bgColour={Colours.greenDark}
+            bgColour={Colours.green}
             onPress={() => navigation.navigate('Words')}
           />
           <Button
