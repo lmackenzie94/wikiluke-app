@@ -1,24 +1,69 @@
-import React from 'react';
-import { StyleSheet } from 'react-native';
+import React, { useState } from 'react';
+import { StyleSheet, Text } from 'react-native';
 import Input from '../components/Input';
 import InputScreen from '../components/InputScreen';
 import Button from '../components/Button';
 import Colours from '../constants/colours';
 
-const AdviceInputScreen = () => {
+const adviceInputScreen = () => {
+  const [advice, setAdvice] = useState('');
+  const [adviceError, setAdviceError] = useState(false);
+  const [requestState, setRequestState] = useState({ error: false, msg: null });
+
+  const handleSubmit = async () => {
+    if (!advice.trim()) {
+      setAdviceError(true);
+      return;
+    }
+
+    const response = await fetch('https://better-brain.herokuapp.com/advice', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ text: advice.trim() }), // body data type must match "Content-Type" header
+    });
+    if (!response.ok) {
+      setRequestState({
+        error: true,
+        msg: 'Something went wrong, please try again',
+      });
+      return;
+    }
+
+    setAdvice('');
+    setRequestState({
+      error: false,
+      msg: `Successfully added. Consider yourself a little wiser.'`,
+    });
+  };
+
   return (
-    <InputScreen title="Drop some knowledge:">
+    <InputScreen title="Add Advice:">
       <Input
         style={styles.input}
+        placeholder="ex. Every pizza is a personal pizza if you try hard enough and believe in yourself"
+        value={advice}
+        onChangeText={(text) => {
+          if (adviceError) setAdviceError(false);
+          setRequestState({ error: false, msg: null });
+          setAdvice(text);
+        }}
         blurOnSubmit
-        autoCapitalize="none"
-        autoCorrect={false}
+        error={adviceError}
       />
+      {requestState.msg && (
+        <Text
+          style={{ marginTop: 10, color: requestState.error ? `red` : `green` }}
+        >
+          {requestState.msg}
+        </Text>
+      )}
       <Button
         text="Submit"
         bgColour={Colours.red}
-        onPress={() => console.log('click')}
-        style={{ paddingVertical: 10 }}
+        onPress={handleSubmit}
+        style={{ paddingVertical: 10, marginTop: 35 }}
       />
     </InputScreen>
   );
@@ -30,4 +75,4 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
 });
-export default AdviceInputScreen;
+export default adviceInputScreen;

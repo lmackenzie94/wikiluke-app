@@ -22,8 +22,10 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.lukemackenzie.wikiluke",
+      "buildNumber": "1.0.0"
     },
-    "description": ""
+    "description": "A handy app to quickly add data to my personal wiki page."
   }
 }

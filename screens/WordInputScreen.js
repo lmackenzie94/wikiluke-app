@@ -13,16 +13,19 @@ const WordInputScreen = () => {
   const [requestState, setRequestState] = useState({ error: false, msg: null });
 
   const handleSubmit = async () => {
-    if (!word) setWordError(true);
-    if (!definition) setDefinitionError(true);
-    if (!word || !definition) return;
+    if (!word.trim()) setWordError(true);
+    if (!definition.trim()) setDefinitionError(true);
+    if (!word.trim() || !definition.trim()) return;
 
     const response = await fetch('https://better-brain.herokuapp.com/words', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ name: word, definition }), // body data type must match "Content-Type" header
+      body: JSON.stringify({
+        name: word.trim(),
+        definition: definition.trim(),
+      }), // body data type must match "Content-Type" header
     });
     if (!response.ok) {
       setRequestState({
@@ -34,17 +37,21 @@ const WordInputScreen = () => {
 
     setWord('');
     setDefinition('');
-    setRequestState({ error: false, msg: `Successfully added '${word}'` });
+    setRequestState({
+      error: false,
+      msg: `Success: /səkˈses/ [noun] the accomplishment of an aim or purpose`,
+    });
   };
 
   return (
     <InputScreen title="Add a word:">
       <Input
         style={styles.input}
-        placeholder="Word"
+        placeholder="ex. Bumfuzzle"
         value={word}
         onChangeText={(text) => {
           if (wordError) setWordError(false);
+          setRequestState({ error: false, msg: null });
           setWord(text);
         }}
         blurOnSubmit
@@ -52,10 +59,11 @@ const WordInputScreen = () => {
       />
       <Input
         style={styles.input}
-        placeholder="Definition"
+        placeholder="to confuse or fluster"
         value={definition}
         onChangeText={(text) => {
           if (definitionError) setDefinitionError(false);
+          setRequestState({ error: false, msg: null });
           setDefinition(text);
         }}
         blurOnSubmit
