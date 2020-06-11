@@ -17,7 +17,7 @@ const QuoteInputScreen = () => {
     if (!author.trim()) setAuthorError(true);
     if (!quote.trim() || !author.trim()) return;
 
-    const response = await fetch('https://better-brain.herokuapp.com/quotes', {
+    const response = await fetch('https://wikiluke.herokuapp.com/quotes', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

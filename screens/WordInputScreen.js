@@ -17,7 +17,7 @@ const WordInputScreen = () => {
     if (!definition.trim()) setDefinitionError(true);
     if (!word.trim() || !definition.trim()) return;
 
-    const response = await fetch('https://better-brain.herokuapp.com/words', {
+    const response = await fetch('https://wikiluke.herokuapp.com/words', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

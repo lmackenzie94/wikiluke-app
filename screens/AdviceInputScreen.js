@@ -16,7 +16,7 @@ const adviceInputScreen = () => {
       return;
     }
 
-    const response = await fetch('https://better-brain.herokuapp.com/advice', {
+    const response = await fetch('https://wikiluke.herokuapp.com/advice', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
