@@ -22,17 +22,17 @@ export default function HomeScreen({ navigation }) {
         </MonoText> */}
         <ButtonContainer>
           <Button
-            text="Add a word"
+            text="Add a Word"
             bgColour={Colours.greenDark}
             onPress={() => navigation.navigate('Words')}
           />
           <Button
-            text="Add a quote"
+            text="Add a Quote"
             bgColour={Colours.yellow}
             onPress={() => navigation.navigate('Quotes')}
           />
           <Button
-            text="Add advice"
+            text="Add Advice"
             bgColour={Colours.red}
             onPress={() => navigation.navigate('Advice')}
           />
