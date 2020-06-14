@@ -9,5 +9,6 @@ const styles = StyleSheet.create({
   wrapper: {
     paddingLeft: 15,
     paddingRight: 15,
+    maxWidth: 500,
   },
 });

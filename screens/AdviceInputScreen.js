@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { StyleSheet, Text } from 'react-native';
+import { StyleSheet, Text, ActivityIndicator } from 'react-native';
 import Input from '../components/Input';
 import InputScreen from '../components/InputScreen';
 import Button from '../components/Button';
@@ -8,13 +8,18 @@ import Colours from '../constants/colours';
 const adviceInputScreen = () => {
   const [advice, setAdvice] = useState('');
   const [adviceError, setAdviceError] = useState(false);
-  const [requestState, setRequestState] = useState({ error: false, msg: null });
+  const [requestState, setRequestState] = useState({
+    error: false,
+    msg: null,
+    loading: false,
+  });
 
   const handleSubmit = async () => {
     if (!advice.trim()) {
       setAdviceError(true);
       return;
     }
+    setRequestState((prev) => ({ ...prev, loading: true }));
 
     const response = await fetch('https://wikiluke.herokuapp.com/advice', {
       method: 'POST',
@@ -27,6 +32,7 @@ const adviceInputScreen = () => {
       setRequestState({
         error: true,
         msg: 'Something went wrong, please try again',
+        loading: false,
       });
       return;
     }
@@ -35,6 +41,7 @@ const adviceInputScreen = () => {
     setRequestState({
       error: false,
       msg: `Successfully added. Consider yourself a little wiser.'`,
+      loading: false,
     });
   };
 
@@ -63,7 +70,21 @@ const adviceInputScreen = () => {
         text="Submit"
         bgColour={Colours.red}
         onPress={handleSubmit}
-        style={{ paddingVertical: 10, marginTop: 35 }}
+        style={{
+          paddingVertical: 10,
+          marginTop: 35,
+          display: requestState.loading ? `none` : `inline-block`,
+        }}
+      />
+      <ActivityIndicator
+        size="large"
+        color={Colours.red}
+        animating={requestState.loading}
+        style={{
+          display: requestState.loading ? `inline-block` : `none`,
+          width: 125,
+          paddingTop: 20,
+        }}
       />
     </InputScreen>
   );

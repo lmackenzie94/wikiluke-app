@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { StyleSheet, Text } from 'react-native';
+import { StyleSheet, Text, ActivityIndicator } from 'react-native';
 import Input from '../components/Input';
 import InputScreen from '../components/InputScreen';
 import Button from '../components/Button';
@@ -9,13 +9,16 @@ const QuoteInputScreen = () => {
   const [quote, setQuote] = useState('');
   const [author, setAuthor] = useState('');
   const [quoteError, setQuoteError] = useState(false);
-  const [authorError, setAuthorError] = useState(false);
-  const [requestState, setRequestState] = useState({ error: false, msg: null });
+  const [requestState, setRequestState] = useState({
+    error: false,
+    msg: null,
+    loading: false,
+  });
 
   const handleSubmit = async () => {
     if (!quote.trim()) setQuoteError(true);
-    if (!author.trim()) setAuthorError(true);
-    if (!quote.trim() || !author.trim()) return;
+    if (!quote.trim()) return;
+    setRequestState((prev) => ({ ...prev, loading: true }));
 
     const response = await fetch('https://wikiluke.herokuapp.com/quotes', {
       method: 'POST',
@@ -28,13 +31,18 @@ const QuoteInputScreen = () => {
       setRequestState({
         error: true,
         msg: 'Something went wrong, please try again',
+        loading: false,
       });
       return;
     }
 
     setQuote('');
     setAuthor('');
-    setRequestState({ error: false, msg: `Very nice! Great success! - Borat` });
+    setRequestState({
+      error: false,
+      msg: `Very nice! Great success! - Borat`,
+      loading: false,
+    });
   };
 
   return (
@@ -56,12 +64,10 @@ const QuoteInputScreen = () => {
         placeholder="Michael Scott"
         value={author}
         onChangeText={(text) => {
-          if (authorError) setAuthorError(false);
           setRequestState({ error: false, msg: null });
           setAuthor(text);
         }}
         blurOnSubmit
-        error={authorError}
       />
       {requestState.msg && (
         <Text
@@ -74,7 +80,21 @@ const QuoteInputScreen = () => {
         text="Submit"
         bgColour={Colours.yellow}
         onPress={handleSubmit}
-        style={{ paddingVertical: 10, marginTop: 35 }}
+        style={{
+          paddingVertical: 10,
+          marginTop: 35,
+          display: requestState.loading ? `none` : `inline-block`,
+        }}
+      />
+      <ActivityIndicator
+        size="large"
+        color={Colours.yellow}
+        animating={requestState.loading}
+        style={{
+          display: requestState.loading ? `inline-block` : `none`,
+          width: 125,
+          paddingTop: 20,
+        }}
       />
     </InputScreen>
   );

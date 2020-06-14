@@ -1,5 +1,11 @@
 import React, { useState } from 'react';
-import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
+import {
+  StyleSheet,
+  Text,
+  View,
+  TouchableOpacity,
+  ActivityIndicator,
+} from 'react-native';
 import Input from '../components/Input';
 import InputScreen from '../components/InputScreen';
 import Button from '../components/Button';
@@ -12,13 +18,19 @@ const WordInputScreen = () => {
   const [definition, setDefinition] = useState('');
   const [wordError, setWordError] = useState(false);
   const [definitionError, setDefinitionError] = useState(false);
-  const [requestState, setRequestState] = useState({ error: false, msg: null });
+  const [definitionLoading, setDefinitionLoading] = useState(false);
+  const [requestState, setRequestState] = useState({
+    error: false,
+    msg: null,
+    loading: false,
+  });
 
   // function to send POST request to add the new word
   const handleSubmit = async () => {
     if (!word.trim()) setWordError(true);
     if (!definition.trim()) setDefinitionError(true);
     if (!word.trim() || !definition.trim()) return;
+    setRequestState((prev) => ({ ...prev, loading: true }));
 
     const response = await fetch('https://wikiluke.herokuapp.com/words', {
       method: 'POST',
@@ -34,6 +46,7 @@ const WordInputScreen = () => {
       setRequestState({
         error: true,
         msg: 'Something went wrong, please try again',
+        loading: false,
       });
       return;
     }
@@ -43,6 +56,7 @@ const WordInputScreen = () => {
     setRequestState({
       error: false,
       msg: `Success: /səkˈses/ [noun] the accomplishment of an aim or purpose`,
+      loading: false,
     });
   };
 
@@ -50,11 +64,11 @@ const WordInputScreen = () => {
   const getDefinition = async () => {
     if (definition) setDefinition('');
     const wordToSearch = word.toLowerCase().trim();
-    console.log(wordToSearch);
+    setDefinitionLoading(true);
 
     try {
       const response = await fetch(
-        'https://us-central1-wikiluke.cloudfunctions.net/function-1',
+        'https://us-central1-wikiluke.cloudfunctions.net/wikiluke',
         {
           method: 'POST',
           headers: {
@@ -65,6 +79,7 @@ const WordInputScreen = () => {
       );
 
       if (!response.ok) {
+        setDefinitionLoading(false);
         setRequestState({
           error: true,
           msg: `Error getting definition for ${word}`,
@@ -72,9 +87,12 @@ const WordInputScreen = () => {
         throw new Error(`Something went wrong getting the definition`);
       }
 
-      let wordJson = await response.json();
+      const wordJson = await response.json();
+
       setDefinition(wordJson.definition);
+      setDefinitionLoading(false);
     } catch (error) {
+      setDefinitionLoading(false);
       console.log(error.message);
     }
   };
@@ -92,6 +110,7 @@ const WordInputScreen = () => {
         }}
         blurOnSubmit
         error={wordError}
+        editable={!definitionLoading || !requestState.loading}
       />
       <Input
         style={styles.input}
@@ -104,6 +123,7 @@ const WordInputScreen = () => {
         }}
         blurOnSubmit
         error={definitionError}
+        editable={!definitionLoading || !requestState.loading}
       />
       {requestState.msg && (
         <Text
@@ -116,6 +136,7 @@ const WordInputScreen = () => {
         style={{
           flexDirection: `row`,
           justifyContent: `space-evenly`,
+          alignItems: `center`,
           width: `100%`,
         }}
       >
@@ -125,7 +146,7 @@ const WordInputScreen = () => {
           onPress={getDefinition}
         >
           <MonoText styles={{ ...styles.definitionButtonText }}>
-            Get Definition
+            {definitionLoading ? `Loading...` : `Get Definition`}
           </MonoText>
         </TouchableOpacity>
         <Button
@@ -137,6 +158,18 @@ const WordInputScreen = () => {
             marginTop: 35,
             borderWidth: 3,
             borderColor: Colours.green,
+            display: requestState.loading ? `none` : `inline-block`,
+            width: 125,
+          }}
+        />
+        <ActivityIndicator
+          size="large"
+          color={Colours.green}
+          animating={requestState.loading}
+          style={{
+            display: requestState.loading ? `inline-block` : `none`,
+            width: 125,
+            paddingTop: 20,
           }}
         />
       </View>
@@ -156,6 +189,7 @@ const styles = StyleSheet.create({
     marginBottom: 15,
     borderWidth: 3,
     borderColor: Colours.green,
+    width: 195,
   },
   definitionButtonText: {
     ...baseStyles.h3,
