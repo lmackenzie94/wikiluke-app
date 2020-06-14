@@ -64,9 +64,16 @@ const WordInputScreen = () => {
   const getDefinition = async () => {
     if (definition) setDefinition('');
     const wordToSearch = word.toLowerCase().trim();
-    setDefinitionLoading(true);
 
     try {
+      if (!wordToSearch) {
+        setRequestState({
+          error: true,
+          msg: `Silly goose, you forgot to enter a word`,
+        });
+        throw new Error(`Word input is empty`);
+      }
+      setDefinitionLoading(true);
       const response = await fetch(
         'https://us-central1-wikiluke.cloudfunctions.net/wikiluke',
         {
@@ -82,9 +89,9 @@ const WordInputScreen = () => {
         setDefinitionLoading(false);
         setRequestState({
           error: true,
-          msg: `Error getting definition for ${word}`,
+          msg: `Hmm, are you sure '${word}' is a real word?`,
         });
-        throw new Error(`Something went wrong getting the definition`);
+        throw new Error(`Error getting the definition`);
       }
 
       const wordJson = await response.json();
@@ -159,7 +166,7 @@ const WordInputScreen = () => {
             borderWidth: 3,
             borderColor: Colours.green,
             display: requestState.loading ? `none` : `inline-block`,
-            width: 125,
+            width: 120,
           }}
         />
         <ActivityIndicator
@@ -189,7 +196,7 @@ const styles = StyleSheet.create({
     marginBottom: 15,
     borderWidth: 3,
     borderColor: Colours.green,
-    width: 195,
+    width: 180,
   },
   definitionButtonText: {
     ...baseStyles.h3,
