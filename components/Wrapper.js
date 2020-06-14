@@ -10,6 +10,7 @@ const styles = StyleSheet.create({
     paddingLeft: 15,
     paddingRight: 15,
     maxWidth: 450,
+    width: `100%`,
     marginLeft: `auto`,
     marginRight: `auto`,
   },
