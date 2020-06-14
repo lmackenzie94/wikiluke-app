@@ -142,7 +142,7 @@ const WordInputScreen = () => {
       <View
         style={{
           flexDirection: `row`,
-          justifyContent: `space-evenly`,
+          justifyContent: `space-between`,
           alignItems: `center`,
           width: `100%`,
         }}
