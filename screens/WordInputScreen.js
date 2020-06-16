@@ -12,6 +12,7 @@ import Button from '../components/Button';
 import Colours from '../constants/colours';
 import baseStyles from '../components/Style';
 import MonoText from '../components/MonoText';
+import doFetch from '../utils/doFetch';
 
 const WordInputScreen = () => {
   const [word, setWord] = useState('');
@@ -32,16 +33,11 @@ const WordInputScreen = () => {
     if (!word.trim() || !definition.trim()) return;
     setRequestState((prev) => ({ ...prev, loading: true }));
 
-    const response = await fetch('https://wikiluke.herokuapp.com/words', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        name: word.trim(),
-        definition: definition.trim(),
-      }), // body data type must match "Content-Type" header
+    const response = await doFetch('words', 'POST', {
+      name: word.trim(),
+      definition: definition.trim(),
     });
+
     if (!response.ok) {
       setRequestState({
         error: true,

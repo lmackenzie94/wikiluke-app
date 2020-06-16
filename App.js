@@ -4,6 +4,7 @@ import HomeScreen from './screens/HomeScreen';
 import WordInputScreen from './screens/WordInputScreen';
 import QuoteInputScreen from './screens/QuoteInputScreen';
 import AdviceInputScreen from './screens/AdviceInputScreen';
+import LearningInputScreen from './screens/LearningInputScreen';
 import Footer from './components/Footer';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
@@ -35,6 +36,11 @@ export default function App() {
           name="Advice"
           component={AdviceInputScreen}
           options={{ title: 'Add Advice', headerTintColor: Colours.red }}
+        />
+        <Stack.Screen
+          name="Learnings"
+          component={LearningInputScreen}
+          options={{ title: 'Add a Learning', headerTintColor: Colours.purple }}
         />
       </Stack.Navigator>
       <Footer />

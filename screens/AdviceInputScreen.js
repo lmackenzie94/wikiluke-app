@@ -4,6 +4,7 @@ import Input from '../components/Input';
 import InputScreen from '../components/InputScreen';
 import Button from '../components/Button';
 import Colours from '../constants/colours';
+import doFetch from '../utils/doFetch';
 
 const adviceInputScreen = () => {
   const [advice, setAdvice] = useState('');
@@ -21,13 +22,7 @@ const adviceInputScreen = () => {
     }
     setRequestState((prev) => ({ ...prev, loading: true }));
 
-    const response = await fetch('https://wikiluke.herokuapp.com/advice', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ text: advice.trim() }), // body data type must match "Content-Type" header
-    });
+    const response = await doFetch('advice', 'POST', { text: advice.trim() });
     if (!response.ok) {
       setRequestState({
         error: true,
