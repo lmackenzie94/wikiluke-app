@@ -82,7 +82,7 @@ const WordInputScreen = () => {
       );
 
       if (!response.ok) {
-        setDefinitionLoading(false);
+        // setDefinitionLoading(false);
         setRequestState({
           error: true,
           msg: `Hmm, are you sure '${word}' is a real word?`,
@@ -91,12 +91,16 @@ const WordInputScreen = () => {
       }
 
       const wordJson = await response.json();
-
       setDefinition(wordJson.definition);
-      setDefinitionLoading(false);
+      // setRequestState({
+      //   error: true,
+      //   msg: `Hmm, are you sure '${word}' is a real word?`,
+      // });
+      // throw new Error(`Error getting the definition`);
     } catch (error) {
-      setDefinitionLoading(false);
       console.log(error.message);
+    } finally {
+      setDefinitionLoading(false);
     }
   };
 

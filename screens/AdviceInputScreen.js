@@ -22,22 +22,26 @@ const adviceInputScreen = () => {
     }
     setRequestState((prev) => ({ ...prev, loading: true }));
 
-    const response = await doFetch('advice', 'POST', { text: advice.trim() });
-    if (!response.ok) {
+    try {
+      const response = await doFetch('advice', 'POST', { text: advice.trim() });
+      if (!response.ok) {
+        setRequestState({
+          error: true,
+          msg: 'Something went wrong, please try again',
+          loading: false,
+        });
+        return;
+      }
+
+      setAdvice('');
       setRequestState({
-        error: true,
-        msg: 'Something went wrong, please try again',
+        error: false,
+        msg: `Successfully added. Consider yourself a little wiser.'`,
         loading: false,
       });
-      return;
+    } catch (error) {
+      console.log(error.message);
     }
-
-    setAdvice('');
-    setRequestState({
-      error: false,
-      msg: `Successfully added. Consider yourself a little wiser.'`,
-      loading: false,
-    });
   };
 
   return (

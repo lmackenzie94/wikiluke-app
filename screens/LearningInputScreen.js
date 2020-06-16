@@ -23,27 +23,31 @@ const LearningInputScreen = () => {
     if (!learning.trim()) return;
     setRequestState((prev) => ({ ...prev, loading: true }));
 
-    const response = await doFetch('learnings', 'POST', {
-      text: learning.trim(),
-      category: category.trim(),
-    });
+    try {
+      const response = await doFetch('learnings', 'POST', {
+        text: learning.trim(),
+        category: category.trim(),
+      });
 
-    if (!response.ok) {
+      if (!response.ok) {
+        setRequestState({
+          error: true,
+          msg: 'Something went wrong, please try again',
+          loading: false,
+        });
+        return;
+      }
+
+      setLearning('');
+      setCategory('');
       setRequestState({
-        error: true,
-        msg: 'Something went wrong, please try again',
+        error: false,
+        msg: `You smart, you loyal`,
         loading: false,
       });
-      return;
+    } catch (error) {
+      console.log(error.message);
     }
-
-    setLearning('');
-    setCategory('');
-    setRequestState({
-      error: false,
-      msg: `You smart, you loyal`,
-      loading: false,
-    });
   };
 
   return (

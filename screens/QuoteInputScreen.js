@@ -21,27 +21,31 @@ const QuoteInputScreen = () => {
     if (!quote.trim()) return;
     setRequestState((prev) => ({ ...prev, loading: true }));
 
-    const response = await doFetch('quotes', 'POST', {
-      text: quote.trim(),
-      author: author.trim(),
-    });
+    try {
+      const response = await doFetch('quotes', 'POST', {
+        text: quote.trim(),
+        author: author.trim(),
+      });
 
-    if (!response.ok) {
+      if (!response.ok) {
+        setRequestState({
+          error: true,
+          msg: 'Something went wrong, please try again',
+          loading: false,
+        });
+        return;
+      }
+
+      setQuote('');
+      setAuthor('');
       setRequestState({
-        error: true,
-        msg: 'Something went wrong, please try again',
+        error: false,
+        msg: `Very nice! Great success! - Borat`,
         loading: false,
       });
-      return;
+    } catch (error) {
+      console.log(error.message);
     }
-
-    setQuote('');
-    setAuthor('');
-    setRequestState({
-      error: false,
-      msg: `Very nice! Great success! - Borat`,
-      loading: false,
-    });
   };
 
   return (
