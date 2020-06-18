@@ -6,7 +6,14 @@ import Button from '../components/Button';
 import Colours from '../constants/colours';
 import doFetch from '../utils/doFetch';
 
-const categories = [`Misc`, `Business`, `Tech`, `Science`, `Psychology`];
+const categories = [
+  `Misc`,
+  `Business`,
+  `Tech`,
+  `Science`,
+  `Psychology`,
+  `Food & Health`,
+];
 
 const LearningInputScreen = () => {
   const [learning, setLearning] = useState('');
