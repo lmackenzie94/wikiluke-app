@@ -151,7 +151,7 @@ const styles = StyleSheet.create({
   categoryInput: {
     width: `100%`,
     textAlign: 'center',
-    marginTop: 110,
+    marginTop: 90,
   },
 });
 export default LearningInputScreen;
