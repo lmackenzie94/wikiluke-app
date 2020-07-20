@@ -7,17 +7,18 @@ import Colours from '../constants/colours';
 import doFetch from '../utils/doFetch';
 
 const categories = [
-  `Misc`,
   `Business`,
   `Tech`,
   `Science`,
   `Psychology`,
   `Food & Health`,
+  `Other`,
 ];
 
 const LearningInputScreen = () => {
   const [learning, setLearning] = useState('');
   const [category, setCategory] = useState(categories[0].toLowerCase());
+  const [customCategory, setCustomCategory] = useState('');
   const [learningError, setLearningError] = useState(false);
   const [requestState, setRequestState] = useState({
     error: false,
@@ -26,14 +27,19 @@ const LearningInputScreen = () => {
   });
 
   const handleSubmit = async () => {
-    if (!learning.trim()) setLearningError(true);
-    if (!learning.trim()) return;
+    if (!learning.trim() || !customCategory.trim()) {
+      setLearningError(true);
+      return;
+    }
     setRequestState((prev) => ({ ...prev, loading: true }));
 
     try {
       const response = await doFetch('learnings', 'POST', {
         text: learning.trim(),
-        category: category.trim(),
+        category:
+          category == 'other'
+            ? customCategory.toLowerCase().trim()
+            : category.trim(),
       });
 
       if (!response.ok) {
@@ -47,6 +53,7 @@ const LearningInputScreen = () => {
 
       setLearning('');
       setCategory('');
+      setCustomCategory('');
       setRequestState({
         error: false,
         msg: `You smart, you loyal`,
@@ -91,13 +98,27 @@ const LearningInputScreen = () => {
           />
         ))}
       </Picker>
+      {category === 'other' && (
+        <Input
+          style={styles.categoryInput}
+          placeholder="Enter the category"
+          value={customCategory}
+          onChangeText={(text) => {
+            if (learningError) setLearningError(false);
+            setRequestState({ error: false, msg: null });
+            setCustomCategory(text);
+          }}
+          blurOnSubmit
+          error={learningError}
+        />
+      )}
       <Button
         text="Submit"
         bgColour={Colours.purple}
         onPress={handleSubmit}
         style={{
           paddingVertical: 10,
-          marginTop: 155,
+          marginTop: category === 'other' ? 50 : 155,
           opacity: requestState.loading ? 0 : 1,
         }}
       />
@@ -126,6 +147,11 @@ const styles = StyleSheet.create({
   input: {
     width: `100%`,
     textAlign: 'center',
+  },
+  categoryInput: {
+    width: `100%`,
+    textAlign: 'center',
+    marginTop: 110,
   },
 });
 export default LearningInputScreen;

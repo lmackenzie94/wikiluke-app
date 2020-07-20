@@ -10,12 +10,12 @@ export default function HomeScreen({ navigation }) {
       <View style={styles.screen}>
         <ButtonContainer>
           <Button
-            text="Add a Word"
+            text="Add Word"
             bgColour={Colours.green}
             onPress={() => navigation.navigate('Words')}
           />
           <Button
-            text="Add a Quote"
+            text="Add Quote"
             bgColour={Colours.yellow}
             onPress={() => navigation.navigate('Quotes')}
           />
@@ -25,7 +25,7 @@ export default function HomeScreen({ navigation }) {
             onPress={() => navigation.navigate('Advice')}
           />
           <Button
-            text="Add a Learning"
+            text="Add Learning"
             bgColour={Colours.purple}
             onPress={() => navigation.navigate('Learnings')}
           />
