@@ -1055,6 +1055,13 @@
     "@types/yargs" "^15.0.0"
     chalk "^3.0.0"
 
+"@lmack/hooks@^1.0.13":
+  version "1.0.13"
+  resolved "https://registry.yarnpkg.com/@lmack/hooks/-/hooks-1.0.13.tgz#d4e8917ffbe7c42fb496eae891ee8d7bb9fe7dd5"
+  integrity sha512-H8ai77uFBdl4OYFCmYnLDLDJO7kdUNKZrlTxdYR6CEyYT7HXM44gtPU/4nqnABc9AX2g058PM1w7ewaVz70wkQ==
+  dependencies:
+    form-serialize "^0.7.2"
+
 "@react-native-community/cli-debugger-ui@^3.0.0":
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/@react-native-community/cli-debugger-ui/-/cli-debugger-ui-3.0.0.tgz#d01d08d1e5ddc1633d82c7d84d48fff07bd39416"
@@ -2656,6 +2663,11 @@ for-in@^1.0.2:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/for-in/-/for-in-1.0.2.tgz#81068d295a8142ec0ac726c6e2200c30fb6d5e80"
   integrity sha1-gQaNKVqBQuwKxybG4iAMMPttXoA=
+
+form-serialize@^0.7.2:
+  version "0.7.2"
+  resolved "https://registry.yarnpkg.com/form-serialize/-/form-serialize-0.7.2.tgz#b0a2ff0c22026fb6d3d15c9d33f6de6a432e4732"
+  integrity sha1-sKL/DCICb7bT0VydM/beakMuRzI=
 
 fragment-cache@^0.2.1:
   version "0.2.1"

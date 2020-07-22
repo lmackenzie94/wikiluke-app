@@ -27,7 +27,7 @@ const LearningInputScreen = () => {
   });
 
   const handleSubmit = async () => {
-    if (!learning.trim() || !customCategory.trim()) {
+    if (!learning.trim() || (category === 'other' && !customCategory.trim())) {
       setLearningError(true);
       return;
     }
@@ -76,7 +76,7 @@ const LearningInputScreen = () => {
           setLearning(text);
         }}
         blurOnSubmit
-        error={learningError}
+        error={learningError && !learning.trim()}
       />
       <Picker
         selectedValue={category}
@@ -109,7 +109,7 @@ const LearningInputScreen = () => {
             setCustomCategory(text);
           }}
           blurOnSubmit
-          error={learningError}
+          error={learningError && !customCategory.trim()}
         />
       )}
       <Button
