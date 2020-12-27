@@ -34,6 +34,8 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     marginTop: 15,
     marginBottom: 15,
+    borderWidth: 3,
+    borderColor: 'transparent'
   },
   buttonText: {
     ...baseStyles.h3,

@@ -29,6 +29,13 @@ export default function HomeScreen({ navigation }) {
             bgColour={Colours.purple}
             onPress={() => navigation.navigate('Learnings')}
           />
+          <Button
+            text="Vocabulous"
+            bgColour='transparent'
+            colour='black'
+            onPress={() => navigation.navigate('Vocabulous')}
+            style={{borderColor: Colours.brown}}
+          />
         </ButtonContainer>
       </View>
     </Wrapper>

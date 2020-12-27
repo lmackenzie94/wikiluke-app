@@ -4,7 +4,7 @@ import Input from '../components/Input';
 import InputScreen from '../components/InputScreen';
 import Button from '../components/Button';
 import Colours from '../constants/colours';
-import doFetch from '../utils/doFetch';
+import {doFetch} from '../utils/utils';
 
 const adviceInputScreen = () => {
   const [advice, setAdvice] = useState('');

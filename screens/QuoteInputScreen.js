@@ -4,7 +4,7 @@ import Input from '../components/Input';
 import InputScreen from '../components/InputScreen';
 import Button from '../components/Button';
 import Colours from '../constants/colours';
-import doFetch from '../utils/doFetch';
+import { doFetch } from '../utils/utils';
 
 const QuoteInputScreen = () => {
   const [quote, setQuote] = useState('');
@@ -19,7 +19,7 @@ const QuoteInputScreen = () => {
   const handleSubmit = async () => {
     if (!quote.trim()) setQuoteError(true);
     if (!quote.trim()) return;
-    setRequestState((prev) => ({ ...prev, loading: true }));
+    setRequestState(prev => ({ ...prev, loading: true }));
 
     try {
       const response = await doFetch('quotes', 'POST', {
@@ -54,7 +54,7 @@ const QuoteInputScreen = () => {
         style={styles.input}
         placeholder="ex. You miss 100% of the shots you don't take - Wayne Gretzky"
         value={quote}
-        onChangeText={(text) => {
+        onChangeText={text => {
           if (quoteError) setQuoteError(false);
           setRequestState({ error: false, msg: null });
           setQuote(text);
@@ -66,7 +66,7 @@ const QuoteInputScreen = () => {
         style={styles.input}
         placeholder="Michael Scott"
         value={author}
-        onChangeText={(text) => {
+        onChangeText={text => {
           setRequestState({ error: false, msg: null });
           setAuthor(text);
         }}

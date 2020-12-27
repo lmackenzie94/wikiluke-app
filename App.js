@@ -5,6 +5,7 @@ import WordInputScreen from './screens/WordInputScreen';
 import QuoteInputScreen from './screens/QuoteInputScreen';
 import AdviceInputScreen from './screens/AdviceInputScreen';
 import LearningInputScreen from './screens/LearningInputScreen';
+import VocabulousScreen from './screens/VocabulousScreen';
 import Footer from './components/Footer';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
@@ -41,6 +42,11 @@ export default function App() {
           name="Learnings"
           component={LearningInputScreen}
           options={{ title: 'Add a Learning', headerTintColor: Colours.purple }}
+        />
+         <Stack.Screen
+          name="Vocabulous"
+          component={VocabulousScreen}
+          options={{ title: 'Vocabulous', headerTintColor: Colours.brown }}
         />
       </Stack.Navigator>
       <Footer />

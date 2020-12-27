@@ -12,7 +12,7 @@ import Button from '../components/Button';
 import Colours from '../constants/colours';
 import baseStyles from '../components/Style';
 import MonoText from '../components/MonoText';
-import doFetch from '../utils/doFetch';
+import { doFetch } from '../utils/utils';
 
 const WordInputScreen = () => {
   const [word, setWord] = useState('');
@@ -31,7 +31,7 @@ const WordInputScreen = () => {
     if (!word.trim()) setWordError(true);
     if (!definition.trim()) setDefinitionError(true);
     if (!word.trim() || !definition.trim()) return;
-    setRequestState((prev) => ({ ...prev, loading: true }));
+    setRequestState(prev => ({ ...prev, loading: true }));
 
     const response = await doFetch('words', 'POST', {
       name: word.trim(),
@@ -39,9 +39,13 @@ const WordInputScreen = () => {
     });
 
     if (!response.ok) {
+      let msg =
+        response.status === 409
+          ? `You've already saved that word`
+          : `Something went wrong, please try again`;
       setRequestState({
         error: true,
-        msg: 'Something went wrong, please try again',
+        msg,
         loading: false,
       });
       return;
@@ -110,7 +114,7 @@ const WordInputScreen = () => {
         style={styles.input}
         placeholder="ex. Bumfuzzle"
         value={word}
-        onChangeText={(text) => {
+        onChangeText={text => {
           if (wordError) setWordError(false);
           setRequestState({ error: false, msg: null });
           setWord(text);
@@ -123,7 +127,7 @@ const WordInputScreen = () => {
         style={styles.input}
         placeholder="to confuse or fluster"
         value={definition}
-        onChangeText={(text) => {
+        onChangeText={text => {
           if (definitionError) setDefinitionError(false);
           setRequestState({ error: false, msg: null });
           setDefinition(text);
