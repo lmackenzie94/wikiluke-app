@@ -2,7 +2,7 @@ import React from 'react';
 import { TextInput, StyleSheet, Text } from 'react-native';
 import baseStyles from './Style';
 
-const Input = (props) => {
+const Input = props => {
   return (
     <>
       <TextInput
@@ -23,7 +23,7 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     marginVertical: 15,
     padding: 5,
-    fontFamily: `Courier`,
+    fontFamily: `Courier New`,
   },
   error: {
     color: `red`,

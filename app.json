@@ -2,12 +2,8 @@
   "expo": {
     "name": "wikiluke",
     "slug": "wikiluke",
-    "platforms": [
-      "ios",
-      "android",
-      "web"
-    ],
-    "version": "1.0.0",
+    "platforms": ["ios", "android", "web"],
+    "version": "2.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "splash": {
@@ -18,13 +14,11 @@
     "updates": {
       "fallbackToCacheTimeout": 0
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.lukemackenzie.wikiluke",
-      "buildNumber": "1.0.0"
+      "buildNumber": "2.0.0"
     },
     "description": "A handy app to quickly add data to my personal wiki page."
   }

@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
-import { StyleSheet, Text, ActivityIndicator, Picker } from 'react-native';
+import { StyleSheet, Text, ActivityIndicator } from 'react-native';
+import { Picker } from '@react-native-picker/picker';
 import Input from '../components/Input';
 import InputScreen from '../components/InputScreen';
 import Button from '../components/Button';
 import Colours from '../constants/colours';
-import {doFetch} from '../utils/utils';
+import { doFetch } from '../utils/utils';
 
 const categories = [
   `Business`,
@@ -31,7 +32,7 @@ const LearningInputScreen = () => {
       setLearningError(true);
       return;
     }
-    setRequestState((prev) => ({ ...prev, loading: true }));
+    setRequestState(prev => ({ ...prev, loading: true }));
 
     try {
       const response = await doFetch('learnings', 'POST', {
@@ -70,7 +71,7 @@ const LearningInputScreen = () => {
         style={styles.input}
         placeholder="ex. Wal-Mart averages a profit of $1.8 million every hour."
         value={learning}
-        onChangeText={(text) => {
+        onChangeText={text => {
           if (learningError) setLearningError(false);
           setRequestState({ error: false, msg: null });
           setLearning(text);
@@ -88,7 +89,7 @@ const LearningInputScreen = () => {
           marginBottom: 40,
           paddingVertical: 40,
         }}
-        onValueChange={(itemValue) => setCategory(itemValue)}
+        onValueChange={itemValue => setCategory(itemValue)}
       >
         {categories.map((category, idx) => (
           <Picker.Item
@@ -103,7 +104,7 @@ const LearningInputScreen = () => {
           style={styles.categoryInput}
           placeholder="Enter the category"
           value={customCategory}
-          onChangeText={(text) => {
+          onChangeText={text => {
             if (learningError) setLearningError(false);
             setRequestState({ error: false, msg: null });
             setCustomCategory(text);
