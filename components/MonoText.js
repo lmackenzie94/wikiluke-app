@@ -6,7 +6,7 @@ export default function MonoText({ children, styles }) {
   return (
     <Text
       style={{
-        fontFamily: 'Courier',
+        fontFamily: 'Courier New',
         ...baseStyles.p,
         ...styles,
       }}
